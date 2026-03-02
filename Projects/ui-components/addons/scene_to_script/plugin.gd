@@ -1,0 +1,16 @@
+@tool
+extends EditorPlugin
+
+const DOCK_SCRIPT := preload("res://addons/scene_to_script/scene_to_script_dock.gd")
+
+var _dock: Control
+
+func _enter_tree() -> void:
+	_dock = DOCK_SCRIPT.new()
+	add_control_to_dock(EditorPlugin.DOCK_SLOT_RIGHT_UL, _dock)
+
+func _exit_tree() -> void:
+	if _dock != null:
+		remove_control_from_docks(_dock)
+		_dock.queue_free()
+		_dock = null
